@@ -3,6 +3,7 @@
 #include "graphics.h"
 #include "randomnum.h"
 #include "global.h"
+#include <stdio.h>
 
 void initialiseGrid(int *grid_width, int *grid_height) {
     setWindowSize(win_width, win_height);
@@ -11,7 +12,7 @@ void initialiseGrid(int *grid_width, int *grid_height) {
     *grid_height = randomNum(5, win_height / tile_size);
 }
 
-void displayBackground(int grid_width, int grid_height, int tile_size) {
+void displayBackground(int grid_width, int grid_height, int tile_size, Coord *marker) {
     background();
 
     int left_corner_x = (win_width - grid_width * tile_size) / 2;
@@ -22,12 +23,16 @@ void displayBackground(int grid_width, int grid_height, int tile_size) {
             if (i == 0 || i == grid_height - 1 || j == 0 || j == grid_width - 1) {
                 setRGBColour(203, 65, 84);
                 fillRect(left_corner_x + tile_size * j, left_corner_y + tile_size * i, tile_size, tile_size);
+            } else if (i == marker->y && j == marker->x){
+                setRGBColour(10, 218, 100);
+                fillRect(left_corner_x + tile_size * j, left_corner_y + tile_size * i, tile_size, tile_size);
             } else {
                 setRGBColour(0, 0, 0);
                 drawRect(left_corner_x + tile_size * j, left_corner_y + tile_size * i, tile_size, tile_size);
             }
         }
     }
+    printf("Marker received at display: %d %d", marker->x, marker->y);
 }
 
 void displayForeground(void) {

@@ -8,20 +8,20 @@ Coord generateMarker(int grid_width, int grid_height) {
     switch (which_edge)
     {
     case 0:
-        x = randomNum(1, grid_width - 1);
+        x = randomNum(1, grid_width - 2);
         y = 1;
         break;
     case 1:
-        x = grid_width - 1;
-        y = randomNum(1, grid_height - 1);
+        x = grid_width - 2;
+        y = randomNum(1, grid_height - 2);
         break;
     case 2:
-        x = randomNum(1, grid_width - 1);
-        y = grid_height - 1;
+        x = randomNum(1, grid_width - 2);
+        y = grid_height - 2;
         break;
     case 3:
         x = 1;
-        y = randomNum(1, grid_height - 1);
+        y = randomNum(1, grid_height - 2);
         break;
     default:
         break;
