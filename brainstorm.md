@@ -14,6 +14,7 @@
 - Compare robot location to marker location
 ### void pickUpMarker()
 - Set marker coord to {-1, -1} -> won't be drawn on the grid
+- Redraw background layer
 
 
 ## Robot

@@ -2,17 +2,18 @@
 #include <time.h>
 #include "graphics.h"
 #include "randomnum.h"
+#include "global.h"
 
-void displayBackground(void) {
+void initialiseGrid(int *grid_width, int *grid_height) {
+    setWindowSize(win_width, win_height);
+    int tile_size = 50;
+    *grid_width = randomNum(5, win_width / tile_size); //inc. walls
+    *grid_height = randomNum(5, win_height / tile_size);
+}
+
+void displayBackground(int grid_width, int grid_height, int tile_size) {
     background();
 
-    int win_width = 1000;
-    int win_height = 800;
-    setWindowSize(win_width, win_height);
-
-    int tile_size = 50;
-    int grid_width = randomNum(5, win_width / tile_size); //inc. walls
-    int grid_height = randomNum(5, win_height / tile_size);
     int left_corner_x = (win_width - grid_width * tile_size) / 2;
     int left_corner_y = (win_height - grid_height * tile_size) / 2;
 
