@@ -1,5 +1,5 @@
-#include "grid.h"
+#include "display.h"
 
 int main(void) {
-    displayGrid();
+    displayBackground();
 }
