@@ -4,11 +4,14 @@
 #include "grid.h"
 #include <stdio.h>
 
-int grid_width;
-int grid_height;
-
 int main(void) {
-    setGridSize(&grid_width, &grid_height);
+    initialiseGrid();
     Coord marker = generateMarker();
+    updateGrid(&marker);
     displayBackground(&marker);
+
+
+
+
+    freeGrid();
 }

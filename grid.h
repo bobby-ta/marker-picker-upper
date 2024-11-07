@@ -1,1 +1,3 @@
-void setGridSize(int *grid_width, int *grid_height);
+void initialiseGrid();
+void updateGrid(Coord *marker);
+void freeGrid();

@@ -3,6 +3,7 @@
 #include "graphics.h"
 #include "global.h"
 #include <stdio.h>
+#include <string.h>
 
 void displayBackground(Coord *marker) {
     setWindowSize(WIN_WIDTH, WIN_HEIGHT);
@@ -13,10 +14,10 @@ void displayBackground(Coord *marker) {
 
     for (int i = 0; i < grid_height; i++) {
         for (int j = 0; j < grid_width; j++) {
-            if (i == 0 || i == grid_height - 1 || j == 0 || j == grid_width - 1) {
+            if (strcmp(grid[i][j], "wall") == 0) {
                 setRGBColour(203, 65, 84);
                 fillRect(left_corner_x + TILE_SIZE * j, left_corner_y + TILE_SIZE * i, TILE_SIZE, TILE_SIZE);
-            } else if (i == marker->y && j == marker->x){
+            } else if (strcmp(grid[i][j], "marker") == 0){
                 setRGBColour(10, 218, 100);
                 fillRect(left_corner_x + TILE_SIZE * j, left_corner_y + TILE_SIZE * i, TILE_SIZE, TILE_SIZE);
             } else {
