@@ -7,3 +7,5 @@ typedef struct {
 } Robot;
 
 Robot initialiseRobot(Coord *marker);
+int canMoveForward(Robot *robot);
+void forward(Robot *robot);

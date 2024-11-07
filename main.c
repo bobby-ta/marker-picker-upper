@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include "display.h"
 #include "robot.h"
 #include "marker.h"
@@ -11,7 +12,11 @@ int main(void) {
     displayBackground(&marker);
     Robot robot = initialiseRobot(&marker);
     displayForeground(&robot);
-
+    while (canMoveForward(&robot)) {
+        forward(&robot);
+        displayForeground(&robot);
+        sleep(100);
+    }
 
     freeGrid();
 }

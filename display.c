@@ -33,17 +33,24 @@ void displayBackground(Coord *marker) {
 }
 
 void displayForeground(Robot *robot) {
+    foreground();
+    clear();
     char robotimg[24];
 
-    if (robot->direction == 'N') {
+    switch (robot->direction) {
+    case 'N':
         snprintf(robotimg, sizeof(robotimg), "./resources/robot-n.png");
-    } else if (robot->direction == 'E') {
+        break;
+    case 'E':
         snprintf(robotimg, sizeof(robotimg), "./resources/robot-e.png");
-    } else if (robot->direction == 'S') {
+        break;
+    case 'S':
         snprintf(robotimg, sizeof(robotimg), "./resources/robot-s.png");
-    } else if (robot->direction == 'W') {
+        break;
+    case 'W':
         snprintf(robotimg, sizeof(robotimg), "./resources/robot-w.png");
-    }
+        break;
+    };
 
     displayImage(robotimg, left_corner_x + 1 + (TILE_SIZE * robot->position.x), left_corner_y + 1 + (TILE_SIZE * robot->position.y));
 }
