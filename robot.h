@@ -3,5 +3,7 @@
 
 typedef struct {
     Coord position;
-    char direction[6];
+    char direction;
 } Robot;
+
+Robot initialiseRobot(Coord *marker);

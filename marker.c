@@ -5,7 +5,7 @@ Coord generateMarker() {
     Coord marker = {};
     int which_edge = randomNum(0, 3); //0 = north, 1 = east, etc.
     int x, y;
-    switch (which_edge)
+    switch (which_edge) 
     {
     case 0:
         x = randomNum(1, grid_width - 2);

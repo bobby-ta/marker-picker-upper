@@ -1,3 +1,3 @@
 #pragma once
 
-int randomNum(int min, int max);
+int randomNum(int min, int max); 
