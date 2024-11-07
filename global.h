@@ -1,8 +1,12 @@
 #pragma once
 
-extern int win_width;
-extern int win_height;
+#define WIN_WIDTH 1000
+#define WIN_HEIGHT 800
+#define TILE_SIZE 50
+extern int grid_width;
+extern int grid_height;
 
 typedef struct {
-    int x; int y;
+    int x; 
+    int y;
 } Coord;

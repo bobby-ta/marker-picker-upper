@@ -1,0 +1,1 @@
+void setGridSize(int *grid_width, int *grid_height);

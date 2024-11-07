@@ -1,7 +1,7 @@
 #include "randomnum.h"
 #include "global.h"
 
-Coord generateMarker(int grid_width, int grid_height) {
+Coord generateMarker() {
     Coord marker = {};
     int which_edge = randomNum(0, 3); //0 = north, 1 = east, etc.
     int x, y;
