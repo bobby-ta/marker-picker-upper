@@ -5,9 +5,15 @@
 #include "robot.h"
 #include <stdio.h>
 #include <string.h>
+#include "display.h"
 
 static int left_corner_x;
 static int left_corner_y;
+
+void displayAll(Robot *robot, Coord *marker) {
+    displayBackground(marker);
+    displayForeground(robot);
+}
 
 void displayBackground(Coord *marker) {
     setWindowSize(WIN_WIDTH, WIN_HEIGHT);

@@ -4,3 +4,4 @@
 
 void displayBackground(Coord *marker);
 void displayForeground(Robot *robot);
+void displayAll(Robot *robot, Coord *marker);

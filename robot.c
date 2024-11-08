@@ -6,6 +6,7 @@
 #include "robot.h"
 #include "marker.h"
 #include "display.h"
+#include "grid.h"
 
 char directions[] = "NESW";
 
@@ -103,4 +104,20 @@ void right(Robot *robot)
 
 int atMarker(Robot *robot, Coord *marker) {
     return (robot->position.x == marker->x) && (robot->position.y == marker->y);
+}
+
+void pickUpMarker(Robot *robot, Coord *marker) {
+    robot->markers_picked += 1;
+    marker->x = -1;
+    marker->y = -1;
+    updateGrid(marker);
+    displayAll(robot, marker);
+}
+
+void dropMarker(Robot *robot, Coord *marker) {
+    robot->markers_picked -= 1;
+    marker->x = robot->position.x;
+    marker->y = robot->position.y;
+    updateGrid(marker);
+    displayAll(robot, marker);
 }

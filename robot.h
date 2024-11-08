@@ -13,6 +13,6 @@ void forward(Robot *robot);
 void right(Robot *robot);
 void left(Robot *robot);
 int atMarker(Robot *robot, Coord *marker);
-//void pickUpMarker(Robot *robot, Coord *marker);
-//void dropMarker(Robot *robot, Coord *marker);
+void pickUpMarker(Robot *robot, Coord *marker);
+void dropMarker(Robot *robot, Coord *marker);
 //int markerCount(Robot *robot);

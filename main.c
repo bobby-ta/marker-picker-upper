@@ -9,21 +9,28 @@ int main(void) {
     initialiseGrid();
     Coord marker = generateMarker();
     updateGrid(&marker);
-    displayBackground(&marker);
-
     Robot robot = initialiseRobot(&marker);
-    displayForeground(&robot);
+    displayAll(&robot, &marker);
 
+    //Avoid robot jamming in bottom-right corner
     while (robot.direction != 'S') {
         right(&robot);
     }
 
+    //Find marker
     while (!atMarker(&robot, &marker)) {
         right(&robot);
         while (canMoveForward(&robot) && !atMarker(&robot, &marker)) {
             forward(&robot);
         }
     }
+    pickUpMarker(&robot, &marker);
+
+    //Drop marker at corner
+    while (canMoveForward(&robot)) {
+        forward(&robot);
+    }
+    dropMarker(&robot, &marker);
 
     freeGrid();
 }
