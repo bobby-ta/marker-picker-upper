@@ -1,18 +1,21 @@
+#include <string.h>
+#include <unistd.h>
+#include <stdio.h>
 #include "global.h"
 #include "randomnum.h"
 #include "robot.h"
 #include "marker.h"
-#include <string.h>
-#include <unistd.h>
+#include "display.h"
 
 char directions[] = "NESW";
 
 Robot initialiseRobot(Coord *marker) {
     Robot robot = {};
+    robot.markers_picked = 0;
     do {
-        robot.position.x = randomNum(1, grid_width - 2);
+        robot.position.x = randomNum(1, 5);
         robot.position.y = randomNum(1, grid_height - 2);
-    } while (robot.position.x == marker->x && robot.position.y == marker->y);
+    } while (robot.position.x == marker->x || robot.position.y == marker->y);
     robot.direction = directions[randomNum(0, 3)];
     return robot;
 }
@@ -53,6 +56,51 @@ void forward(Robot *robot) {
             robot->position.x -= 1;
             break;
     }
+    sleep(SLEEP_TIME);
+    displayForeground(robot);
 }
 
+void left(Robot *robot) {
+    switch (robot->direction)
+    {
+        case 'N':
+            robot->direction = 'W';
+            break;
+        case 'E':
+            robot->direction = 'N';
+            break;
+        case 'S':
+            robot->direction = 'E';
+            break;
+        case 'W':
+            robot->direction = 'S';
+            break;
+    }
+    sleep(SLEEP_TIME);
+    displayForeground(robot);
+}
 
+void right(Robot *robot)
+{
+    switch (robot->direction)
+    {
+    case 'N':
+        robot->direction = 'E';
+        break;
+    case 'E':
+        robot->direction = 'S';
+        break;
+    case 'S':
+        robot->direction = 'W';
+        break;
+    case 'W':
+        robot->direction = 'N';
+        break;
+    }
+    sleep(SLEEP_TIME);
+    displayForeground(robot);
+}
+
+int atMarker(Robot *robot, Coord *marker) {
+    return (robot->position.x == marker->x) && (robot->position.y == marker->y);
+}

@@ -54,3 +54,4 @@ void displayForeground(Robot *robot) {
 
     displayImage(robotimg, left_corner_x + 1 + (TILE_SIZE * robot->position.x), left_corner_y + 1 + (TILE_SIZE * robot->position.y));
 }
+

@@ -32,9 +32,7 @@ void updateGrid(Coord *marker) {
             else {
                 snprintf(grid[i][j], 6, "empty");
             }
-            //printf("%s", grid[i][j]);
         }
-        //printf("%c", '\n');
     }
 }
 

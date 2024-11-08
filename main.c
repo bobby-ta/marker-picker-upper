@@ -10,12 +10,19 @@ int main(void) {
     Coord marker = generateMarker();
     updateGrid(&marker);
     displayBackground(&marker);
+
     Robot robot = initialiseRobot(&marker);
     displayForeground(&robot);
-    while (canMoveForward(&robot)) {
-        forward(&robot);
-        displayForeground(&robot);
-        sleep(100);
+
+    while (robot.direction != 'S') {
+        right(&robot);
+    }
+
+    while (!atMarker(&robot, &marker)) {
+        right(&robot);
+        while (canMoveForward(&robot) && !atMarker(&robot, &marker)) {
+            forward(&robot);
+        }
     }
 
     freeGrid();
