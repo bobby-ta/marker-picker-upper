@@ -12,11 +12,6 @@ int main(void) {
     Robot robot = initialiseRobot(&marker);
     displayAll(&robot, &marker);
 
-    //Avoid robot jamming in bottom-right corner
-    while (robot.direction != 'S') {
-        right(&robot);
-    }
-
     //Find marker
     while (!atMarker(&robot, &marker)) {
         right(&robot);

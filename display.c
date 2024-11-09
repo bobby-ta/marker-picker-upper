@@ -24,11 +24,14 @@ void displayBackground(Coord *marker) {
 
     for (int i = 0; i < grid_height; i++) {
         for (int j = 0; j < grid_width; j++) {
-            if (strcmp(grid[i][j], "wall") == 0) {
+            if (grid[i][j] == 'w') {
                 setRGBColour(203, 65, 84);
                 fillRect(left_corner_x + TILE_SIZE * j, left_corner_y + TILE_SIZE * i, TILE_SIZE, TILE_SIZE);
-            } else if (strcmp(grid[i][j], "marker") == 0){
+            } else if (grid[i][j] == 'm') {
                 setRGBColour(10, 218, 100);
+                fillRect(left_corner_x + TILE_SIZE * j, left_corner_y + TILE_SIZE * i, TILE_SIZE, TILE_SIZE);
+            } else if (grid[i][j] == 'o') {
+                setRGBColour(0, 0, 0);
                 fillRect(left_corner_x + TILE_SIZE * j, left_corner_y + TILE_SIZE * i, TILE_SIZE, TILE_SIZE);
             } else {
                 setRGBColour(0, 0, 0);
@@ -42,18 +45,17 @@ void displayForeground(Robot *robot) {
     foreground();
     clear();
     char robotimg[24];
-
     switch (robot->direction) {
-    case 'N':
+    case NORTH:
         snprintf(robotimg, sizeof(robotimg), "./resources/robot-n.png");
         break;
-    case 'E':
+    case EAST:
         snprintf(robotimg, sizeof(robotimg), "./resources/robot-e.png");
         break;
-    case 'S':
+    case SOUTH:
         snprintf(robotimg, sizeof(robotimg), "./resources/robot-s.png");
         break;
-    case 'W':
+    case WEST:
         snprintf(robotimg, sizeof(robotimg), "./resources/robot-w.png");
         break;
     };

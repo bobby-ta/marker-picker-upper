@@ -26,5 +26,8 @@ Coord generateMarker() {
     }
     marker.x = x;
     marker.y = y;
+
+    //marker.x = randomNum(1, grid_width - 2);
+    //marker.y = randomNum(1, grid_height - 2);
     return marker;
 }

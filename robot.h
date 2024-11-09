@@ -1,11 +1,19 @@
 #pragma once
 #include "global.h"
 
+typedef enum {
+    NORTH,
+    EAST,
+    SOUTH,
+    WEST
+} Direction;
+
 typedef struct {
     Coord position;
-    char direction;
+    Direction direction;
     int markers_picked;
 } Robot;
+
 
 Robot initialiseRobot(Coord *marker);
 int canMoveForward(Robot *robot);

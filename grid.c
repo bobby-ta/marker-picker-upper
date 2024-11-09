@@ -3,21 +3,18 @@
 #include "global.h"
 #include <stdio.h>
 
+char **grid; // Pointer to a 2D array of characters
 int grid_width;
 int grid_height;
-char ***grid;
 
 void initialiseGrid() {
-    grid_width = randomNum(7, WIN_WIDTH / TILE_SIZE); //inc. walls
-    grid_height = randomNum(7, WIN_HEIGHT / TILE_SIZE);
+    grid_width = randomNum(7, WIN_WIDTH / TILE_SIZE);  // Determine grid width
+    grid_height = randomNum(7, WIN_HEIGHT / TILE_SIZE); // Determine grid height
 
-    grid = malloc(grid_height * sizeof(char**)); //each column is an array of pointers to pointers (rows) to strings
-
+    // Allocate memory for the grid
+    grid = malloc(grid_height * sizeof(char*)); // Allocate memory for rows
     for (int i = 0; i < grid_height; i++) {
-        grid[i] = malloc(grid_width * sizeof(char*)); //each row is an array of pointers to strings
-        for (int j = 0; j < grid_width; j++) {
-            grid[i][j] = malloc(7 * sizeof(char)); //'empty'/'wall'/'obst'/'marker' take up max 6 characters, + \0
-        }
+        grid[i] = malloc(grid_width * sizeof(char)); // Allocate memory for each row
     }
 }
 
@@ -25,12 +22,11 @@ void updateGrid(Coord *marker) {
     for (int i = 0; i < grid_height; i++) {
         for (int j = 0; j < grid_width; j++) {
             if (i == 0 || i == grid_height - 1 || j == 0 || j == grid_width - 1) {
-                snprintf(grid[i][j], 5, "wall");
-            } else if (i == marker->y && j == marker->x){
-                snprintf(grid[i][j], 7, "marker");
-            } //ADD OBSTACLES LATER
-            else {
-                snprintf(grid[i][j], 6, "empty");
+                grid[i][j] = 'w'; // 'w' for wall
+            } else if (i == marker->y && j == marker->x) {
+                grid[i][j] = 'm'; // 'm' for marker
+            } else {
+                grid[i][j] = 'e'; // 'e' for empty
             }
         }
     }
@@ -38,10 +34,8 @@ void updateGrid(Coord *marker) {
 
 void freeGrid() {
     for (int i = 0; i < grid_height; i++) {
-        for (int j = 0; j < grid_width; j++) {
-            free(grid[i][j]);
-        }
-        free(grid[i]);
+        free(grid[i]); // Free each row
     }
-    free(grid);
+    free(grid); // Free the array of row pointers
 }
+

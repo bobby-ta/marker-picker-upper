@@ -6,7 +6,7 @@
 #define SLEEP_TIME 150
 extern int grid_width;
 extern int grid_height;
-extern char ***grid;
+extern char **grid;
 
 typedef struct {
     int x; 

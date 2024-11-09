@@ -8,8 +8,6 @@
 #include "display.h"
 #include "grid.h"
 
-char directions[] = "NESW";
-
 Robot initialiseRobot(Coord *marker) {
     Robot robot = {};
     robot.markers_picked = 0;
@@ -17,43 +15,41 @@ Robot initialiseRobot(Coord *marker) {
         robot.position.x = randomNum(1, 5);
         robot.position.y = randomNum(1, grid_height - 2);
     } while (robot.position.x == marker->x || robot.position.y == marker->y);
-    robot.direction = directions[randomNum(0, 3)];
+    robot.direction = (Direction)randomNum(0, 3);
     return robot;
 }
 
 int canMoveForward(Robot *robot) {
-    char *tile_in_front;
-    switch (robot->direction)
-    {
-        case 'N':
-            tile_in_front = grid[(robot->position.y)-1][robot->position.x];
+    char tile_in_front;
+    switch (robot->direction) {
+        case NORTH:
+            tile_in_front = grid[robot->position.y - 1][robot->position.x];
             break;
-        case 'E':
-            tile_in_front = grid[robot->position.y][(robot->position.x)+1];
+        case EAST:
+            tile_in_front = grid[robot->position.y][robot->position.x + 1];
             break;
-        case 'S':
-            tile_in_front = grid[(robot->position.y)+1][robot->position.x];
+        case SOUTH:
+            tile_in_front = grid[robot->position.y + 1][robot->position.x];
             break;
-        case 'W':
-            tile_in_front = grid[robot->position.y][(robot->position.x)-1];
+        case WEST:
+            tile_in_front = grid[robot->position.y][robot->position.x - 1];
             break;
     }
-    return (strcmp(tile_in_front, "wall") != 0 && strcmp(tile_in_front, "obstacle") != 0);
+    return (tile_in_front != 'w' && tile_in_front != 'o');
 }
 
 void forward(Robot *robot) {
-    switch (robot->direction)
-    {
-        case 'N':
+    switch (robot->direction) {
+        case NORTH:
             robot->position.y -= 1;
             break;
-        case 'E':
+        case EAST:
             robot->position.x += 1;
             break;
-        case 'S':
+        case SOUTH:
             robot->position.y += 1;
             break;
-        case 'W':
+        case WEST:
             robot->position.x -= 1;
             break;
     }
@@ -62,45 +58,43 @@ void forward(Robot *robot) {
 }
 
 void left(Robot *robot) {
-    switch (robot->direction)
-    {
-        case 'N':
-            robot->direction = 'W';
+    switch (robot->direction) {
+        case NORTH:
+            robot->direction = WEST;
             break;
-        case 'E':
-            robot->direction = 'N';
+        case EAST:
+            robot->direction = NORTH;
             break;
-        case 'S':
-            robot->direction = 'E';
+        case SOUTH:
+            robot->direction = EAST;
             break;
-        case 'W':
-            robot->direction = 'S';
+        case WEST:
+            robot->direction = SOUTH;
             break;
     }
     sleep(SLEEP_TIME);
     displayForeground(robot);
 }
 
-void right(Robot *robot)
-{
-    switch (robot->direction)
-    {
-    case 'N':
-        robot->direction = 'E';
-        break;
-    case 'E':
-        robot->direction = 'S';
-        break;
-    case 'S':
-        robot->direction = 'W';
-        break;
-    case 'W':
-        robot->direction = 'N';
-        break;
+void right(Robot *robot) {
+    switch (robot->direction) {
+        case NORTH:
+            robot->direction = EAST;
+            break;
+        case EAST:
+            robot->direction = SOUTH;
+            break;
+        case SOUTH:
+            robot->direction = WEST;
+            break;
+        case WEST:
+            robot->direction = NORTH;
+            break;
     }
     sleep(SLEEP_TIME);
     displayForeground(robot);
 }
+
 
 int atMarker(Robot *robot, Coord *marker) {
     return (robot->position.x == marker->x) && (robot->position.y == marker->y);
