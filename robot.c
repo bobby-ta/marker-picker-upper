@@ -57,14 +57,14 @@ void forward(Robot *robot) {
     displayForeground(robot);
 }
 
-void left(Robot *robot, Direction currentdir) {
-    robot->direction = (currentdir - 1) % DIRECTION_COUNT;
+void left(Robot *robot) {
+    robot->direction = (robot->direction - 1) % 4;
     sleep(SLEEP_TIME);
     displayForeground(robot);
 }
 
-void right(Robot *robot, Direction currentdir) {
-    robot->direction = (currentdir + 1) % DIRECTION_COUNT;
+void right(Robot *robot) {
+    robot->direction = (robot->direction + 1) % 4;
     sleep(SLEEP_TIME);
     displayForeground(robot);
 }

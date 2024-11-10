@@ -6,8 +6,7 @@ typedef enum {
     NORTH,
     EAST,
     SOUTH,
-    WEST,
-    DIRECTION_COUNT
+    WEST
 } Direction;
 
 typedef struct {
@@ -20,8 +19,8 @@ typedef struct {
 Robot initialiseRobot(Coord *marker);
 bool canMoveForward(Robot *robot);
 void forward(Robot *robot);
-void right(Robot *robot, Direction currentdir);
-void left(Robot *robot, Direction currentdir);
+void right(Robot *robot);
+void left(Robot *robot);
 int atMarker(Robot *robot, Coord *marker);
 void pickUpMarker(Robot *robot, Coord *marker);
 void dropMarker(Robot *robot, Coord *marker);
