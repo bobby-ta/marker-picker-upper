@@ -39,7 +39,9 @@ void updateMarker(Coord *marker) {
     for (int i = 0; i < grid_height; i++) {
         for (int j = 0; j < grid_width; j++) {
             if (i == marker->y && j == marker->x) {
-                grid[i][j] = 'm'; //marker
+                grid[i][j] = 'm'; //if marker has been dropped then display
+            } else if (grid[i][j] != 'o' && grid[i][j] != 'w') {
+                grid[i][j] = 'e'; //if marker has been picked then don't display
             }
         }
     }

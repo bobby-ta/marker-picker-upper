@@ -30,15 +30,13 @@ void freeVisited(bool ***visited) {
 
 
 // Directions for moving right, up, down, left
-int rowNum[] = {0, -1, 1, 0};
-int colNum[] = {1, 0, 0, -1};
+int row_num[] = {0, -1, 1, 0};
+int col_num[] = {1, 0, 0, -1};
 
 // Function to perform dfs
 bool dfs(char **grid, bool **visited, Robot *robot) {
-    printf("Current cell: %d %d \n", robot->position.y, robot->position.x);
     // If we find the marker, return true
     if (grid[robot->position.y][robot->position.x] == 'm') {
-        sleep(1000);
         return true;
     }
 
@@ -47,26 +45,25 @@ bool dfs(char **grid, bool **visited, Robot *robot) {
 
     // Explore all 4 possible directions
     for (int i = 0; i < 4; i++) {
-        int newRow = robot->position.y + rowNum[i];
-        int newCol = robot->position.x + colNum[i];
+        int next_row = robot->position.y + row_num[i];
+        int next_col = robot->position.x + col_num[i];
         
         // Check if the new position is within bounds and not visited
-        if (newRow >= 0 && newRow < grid_height && newCol >= 0 && newCol < grid_width &&
-            (grid[newRow][newCol] == 'e' || grid[newRow][newCol] == 'm') && 
-            !visited[newRow][newCol]) {
-            robot->position.y = newRow;
-            robot->position.x = newCol;
+        if (next_row >= 0 && next_row < grid_height && next_col >= 0 && next_col < grid_width &&
+            (grid[next_row][next_col] == 'e' || grid[next_row][next_col] == 'm') && 
+            !visited[next_row][next_col]) {
+            robot->position.y = next_row;
+            robot->position.x = next_col;
             displayForeground(robot);
             sleep(SLEEP_TIME);
 
             if (dfs(grid, visited, robot)) {
                 return true; // Marker found in the recursive call
             } else {
-                robot->position.y -= rowNum[i];
-                robot->position.x -= colNum[i];
+                robot->position.y -= row_num[i];
+                robot->position.x -= col_num[i];
             }
         }
-        printf("Came back to: %d %d \n", robot->position.y, robot->position.x);
         displayForeground(robot);
         sleep(SLEEP_TIME);
     }
