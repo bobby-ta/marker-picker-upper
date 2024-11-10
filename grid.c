@@ -17,7 +17,7 @@ void initialiseGrid() {
     }
 }
 
-void updateGrid(Coord *marker) {
+void designGrid(Coord *marker) {
     for (int i = 0; i < grid_height; i++) {
         for (int j = 0; j < grid_width; j++) {
             if (i == 0 || i == grid_height - 1 || j == 0 || j == grid_width - 1) {
@@ -25,7 +25,21 @@ void updateGrid(Coord *marker) {
             } else if (i == marker->y && j == marker->x) {
                 grid[i][j] = 'm'; //marker
             } else {
-                grid[i][j] = 'e'; //empty
+                if ((rand() % 100) < 20) {
+                    grid[i][j] = 'o'; //obstacle
+                } else {
+                    grid[i][j] = 'e'; //empty
+                }
+            }
+        }
+    }
+}
+
+void updateMarker(Coord *marker) {
+    for (int i = 0; i < grid_height; i++) {
+        for (int j = 0; j < grid_width; j++) {
+            if (i == marker->y && j == marker->x) {
+                grid[i][j] = 'm'; //marker
             }
         }
     }

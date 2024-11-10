@@ -61,6 +61,9 @@ bool dfs(char **grid, bool **visited, Robot *robot) {
 
             if (dfs(grid, visited, robot)) {
                 return true; // Marker found in the recursive call
+            } else {
+                robot->position.y -= rowNum[i];
+                robot->position.x -= colNum[i];
             }
         }
         printf("Came back to: %d %d \n", robot->position.y, robot->position.x);

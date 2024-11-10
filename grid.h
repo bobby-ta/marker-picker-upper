@@ -1,3 +1,4 @@
 void initialiseGrid();
-void updateGrid(Coord *marker);
+void designGrid(Coord *marker);
+void updateMarker(Coord *marker);
 void freeGrid();

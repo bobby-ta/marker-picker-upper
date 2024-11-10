@@ -78,7 +78,7 @@ void pickUpMarker(Robot *robot, Coord *marker) {
     robot->markers_picked += 1;
     marker->x = -1;
     marker->y = -1;
-    updateGrid(marker);
+    updateMarker(marker);
     displayAll(robot, marker);
 }
 
@@ -86,6 +86,6 @@ void dropMarker(Robot *robot, Coord *marker) {
     robot->markers_picked -= 1;
     marker->x = robot->position.x;
     marker->y = robot->position.y;
-    updateGrid(marker);
+    updateMarker(marker);
     displayAll(robot, marker);
 }
