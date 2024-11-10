@@ -4,28 +4,27 @@
 #include "marker.h"
 #include "global.h"
 #include "grid.h"
+#include "robot-search.h"
 
 int main(void) {
     initialiseGrid();
     Coord marker = generateMarker();
     updateGrid(&marker);
     Robot robot = initialiseRobot(&marker);
+    //robot.position.x = 1; //for testing purposes
+    //robot.position.y = 2; //for testing purposes
     displayAll(&robot, &marker);
 
     //Find marker
-    while (!atMarker(&robot, &marker)) {
-        right(&robot, robot.direction);
-        while (canMoveForward(&robot) && !atMarker(&robot, &marker)) {
+    if (search(&robot)) {
+        pickUpMarker(&robot, &marker);
+
+        //Drop marker at corner
+        while (canMoveForward(&robot)) {
             forward(&robot);
         }
+        dropMarker(&robot, &marker);
     }
-    pickUpMarker(&robot, &marker);
-
-    //Drop marker at corner
-    while (canMoveForward(&robot)) {
-        forward(&robot);
-    }
-    dropMarker(&robot, &marker);
 
     freeGrid();
 }
