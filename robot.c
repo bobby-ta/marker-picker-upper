@@ -19,7 +19,7 @@ Robot initialiseRobot(Coord *marker) {
     return robot;
 }
 
-int canMoveForward(Robot *robot) {
+bool canMoveForward(Robot *robot) {
     char tile_in_front;
     switch (robot->direction) {
         case NORTH:
@@ -57,40 +57,14 @@ void forward(Robot *robot) {
     displayForeground(robot);
 }
 
-void left(Robot *robot) {
-    switch (robot->direction) {
-        case NORTH:
-            robot->direction = WEST;
-            break;
-        case EAST:
-            robot->direction = NORTH;
-            break;
-        case SOUTH:
-            robot->direction = EAST;
-            break;
-        case WEST:
-            robot->direction = SOUTH;
-            break;
-    }
+void left(Robot *robot, Direction currentdir) {
+    robot->direction = (currentdir - 1) % DIRECTION_COUNT;
     sleep(SLEEP_TIME);
     displayForeground(robot);
 }
 
-void right(Robot *robot) {
-    switch (robot->direction) {
-        case NORTH:
-            robot->direction = EAST;
-            break;
-        case EAST:
-            robot->direction = SOUTH;
-            break;
-        case SOUTH:
-            robot->direction = WEST;
-            break;
-        case WEST:
-            robot->direction = NORTH;
-            break;
-    }
+void right(Robot *robot, Direction currentdir) {
+    robot->direction = (currentdir + 1) % DIRECTION_COUNT;
     sleep(SLEEP_TIME);
     displayForeground(robot);
 }

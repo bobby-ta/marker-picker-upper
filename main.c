@@ -14,7 +14,7 @@ int main(void) {
 
     //Find marker
     while (!atMarker(&robot, &marker)) {
-        right(&robot);
+        right(&robot, robot.direction);
         while (canMoveForward(&robot) && !atMarker(&robot, &marker)) {
             forward(&robot);
         }
