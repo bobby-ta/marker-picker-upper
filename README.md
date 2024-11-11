@@ -22,7 +22,7 @@ The program generates a randomly-sized arena with a random number of randomly-pl
    a. The display refreshes every time the robot moves or a marker is picked up/placed
 
 ## Instructions
-1. Paste ```display.c```, ```display.h``` and ```drawapp-4.0.jar``` into the main directory
+1. Copy files ```graphics.c```, ```graphics.h``` and ```drawapp-4.0.jar``` into the main directory
 2. Navigate to the main directory in the terminal
 3. Type ```gcc *.c``` into the terminal and press Enter
 4. Type ```./a.out | java -jar drawapp-4.0.jar``` into the terminal and press Enter
