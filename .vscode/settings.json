@@ -5,6 +5,11 @@
         "global.h": "c",
         "stdio.h": "c",
         "unistd.h": "c",
-        "display.h": "c"
+        "display.h": "c",
+        "chrono": "c",
+        "functional": "c",
+        "random": "c",
+        "limits": "c",
+        "valarray": "c"
     }
 }

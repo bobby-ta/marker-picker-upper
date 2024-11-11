@@ -16,12 +16,12 @@ typedef struct {
 } Robot;
 
 
-Robot initialiseRobot(Coord *marker);
+Robot initialiseRobot();
 bool canMoveForward(Robot *robot);
 void forward(Robot *robot);
 void right(Robot *robot);
 void left(Robot *robot);
 int atMarker(Robot *robot, Coord *marker);
-void pickUpMarker(Robot *robot, Coord *marker);
+void pickUpMarker(Robot *robot, Coord **markers, int *marker_count);
 void dropMarker(Robot *robot, Coord *marker);
 //int markerCount(Robot *robot);

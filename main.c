@@ -4,31 +4,30 @@
 #include "marker.h"
 #include "global.h"
 #include "grid.h"
-#include "robot-search.h"
+#include "search.h"
 #include <unistd.h>
 #include <time.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int main(void) {
     srand(time(NULL));
-    initialiseGrid();
-    Coord marker = generateMarker();
-    designGrid(&marker);
-    Robot robot = initialiseRobot(&marker);
-    //robot.position.x = 1; //for testing purposes
-    //robot.position.y = 2; //for testing purposes
-    displayAll(&robot, &marker);
 
+    setGridSize();
+
+    int marker_count = rand() % (grid_width / 3) + 2;
+    Coord *markers = createMarkers(marker_count);
+    
+    initialiseGrid(markers, marker_count);
+
+    Robot robot = initialiseRobot();
+    grid[robot.position.y][robot.position.x] = 'h';
+    displayBackground();
+    sleep(200);
+    
     //Find marker
-    if (search(&robot)) {
-        pickUpMarker(&robot, &marker);
-
-        //Drop marker at corner
-        while (canMoveForward(&robot)) {
-            forward(&robot);
-        }
-        dropMarker(&robot, &marker);
-    }
-
+    search(&robot, &markers, marker_count);
+    
+    freeMarkers(markers);
     freeGrid();
 }

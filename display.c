@@ -10,14 +10,15 @@
 static int left_corner_x;
 static int left_corner_y;
 
-void displayAll(Robot *robot, Coord *marker) {
-    displayBackground(marker);
+void displayAll(Robot *robot) {
+    displayBackground();
     displayForeground(robot);
 }
 
-void displayBackground(Coord *marker) {
+void displayBackground() {
     setWindowSize(WIN_WIDTH, WIN_HEIGHT);
     background();
+    clear();
 
     left_corner_x = (WIN_WIDTH - grid_width * TILE_SIZE) / 2;
     left_corner_y = (WIN_HEIGHT - grid_height * TILE_SIZE) / 2;
@@ -32,6 +33,9 @@ void displayBackground(Coord *marker) {
                 fillRect(left_corner_x + TILE_SIZE * j, left_corner_y + TILE_SIZE * i, TILE_SIZE, TILE_SIZE);
             } else if (grid[i][j] == 'o') {
                 setRGBColour(0, 0, 0);
+                fillRect(left_corner_x + TILE_SIZE * j, left_corner_y + TILE_SIZE * i, TILE_SIZE, TILE_SIZE);
+            } else if (grid[i][j] == 'h') {
+                setRGBColour(41, 166, 201);
                 fillRect(left_corner_x + TILE_SIZE * j, left_corner_y + TILE_SIZE * i, TILE_SIZE, TILE_SIZE);
             } else {
                 setRGBColour(0, 0, 0);

@@ -1,21 +1,21 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "global.h"
-#include "randomnum.h"
 #include "robot.h"
 #include "marker.h"
 #include "display.h"
 #include "grid.h"
 
-Robot initialiseRobot(Coord *marker) {
+Robot initialiseRobot() {
     Robot robot = {};
     robot.markers_picked = 0;
     do {
-        robot.position.x = randomNum(1, 5);
-        robot.position.y = randomNum(1, grid_height - 2);
-    } while (robot.position.x == marker->x || robot.position.y == marker->y);
-    robot.direction = (Direction)randomNum(0, 3);
+        robot.position.x = rand() % (grid_width - 2) + 1;
+        robot.position.y = rand() % (grid_height - 2) + 1;
+    } while (grid[robot.position.y][robot.position.x] != 'e');
+    robot.direction = (Direction)(rand() % 4);
     return robot;
 }
 
@@ -69,23 +69,20 @@ void right(Robot *robot) {
     displayForeground(robot);
 }
 
-
 int atMarker(Robot *robot, Coord *marker) {
     return (robot->position.x == marker->x) && (robot->position.y == marker->y);
 }
 
-void pickUpMarker(Robot *robot, Coord *marker) {
-    robot->markers_picked += 1;
-    marker->x = -1;
-    marker->y = -1;
-    updateMarker(marker);
-    displayAll(robot, marker);
+void pickUpMarker(Robot *robot, Coord **markers, int *marker_count) {
+    robot->markers_picked ++;
+    removeMarker(markers, marker_count, robot->position);
+    displayAll(robot);
 }
 
 void dropMarker(Robot *robot, Coord *marker) {
     robot->markers_picked -= 1;
     marker->x = robot->position.x;
     marker->y = robot->position.y;
-    updateMarker(marker);
-    displayAll(robot, marker);
+    grid[robot->position.y][robot->position.x] = 'm';
+    displayAll(robot);
 }
