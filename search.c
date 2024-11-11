@@ -55,7 +55,7 @@ void freeVisited(bool ***visited) {
 bool dfs(char **grid, bool **visited, Robot *robot, char target) {
     if (grid[robot->position.y][robot->position.x] == target) {
         return true;
-    } else if (grid[robot->position.y][robot->position.x] == 'm') { //In case of airacle on the way to the home tile ;)
+    } else if (grid[robot->position.y][robot->position.x] == 'm') { //In case looking for home tile but stumble on a marker
         robot->markers_picked ++;
         grid[robot->position.y][robot->position.x] = 'e';
         displayAll(robot);

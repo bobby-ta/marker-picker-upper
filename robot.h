@@ -23,4 +23,3 @@ void right(Robot *robot);
 void left(Robot *robot);
 void pickUpMarker(Robot *robot, Coord **markers, int *marker_count);
 void dropMarker(Robot *robot, Coord *marker);
-//int markerCount(Robot *robot);
