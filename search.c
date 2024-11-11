@@ -9,7 +9,7 @@
 #include "display.h"
 #include "search.h"
 
-bool search(Robot *robot, Coord **markers, int marker_count) {
+void search(Robot *robot, Coord **markers, int marker_count) {
     bool **visited;
     initialiseVisited(&visited);
     while (marker_count > 0) {

@@ -26,6 +26,9 @@ int main(void) {
     displayBackground();
     
     search(&robot, &markers, marker_count);
+    for (int i = 0; i < initial_markers; i++) {
+        dropMarker(&robot, &markers[i]);
+    }
     freeMarkers(markers);
     freeGrid();
 }

@@ -69,10 +69,6 @@ void right(Robot *robot) {
     displayForeground(robot);
 }
 
-int atMarker(Robot *robot, Coord *marker) {
-    return (robot->position.x == marker->x) && (robot->position.y == marker->y);
-}
-
 void pickUpMarker(Robot *robot, Coord **markers, int *marker_count) {
     robot->markers_picked ++;
     removeMarker(markers, marker_count, robot->position);
