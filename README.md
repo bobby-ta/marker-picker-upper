@@ -6,8 +6,8 @@ The program generates a randomly-sized arena with a random number of randomly-pl
 ### Steps
 1. Setup
    a. Set grid dimensions
-   b. Generate array of markers (as Coordinate structs)
-   c. Generate arena array with character elements
+   b. Generate dynamic array of markers (as Coordinate structs)
+   c. Generate dynamic arena array with character elements
       1. ```'w'``` for wall<br>
       2. ```'o'``` for obstacle<br>
       3. ```'m'``` for marker<br>
@@ -16,7 +16,8 @@ The program generates a randomly-sized arena with a random number of randomly-pl
 2. Search
    a. Program iterates through markers, searching for them sequentially 
       1. Recursive depth-first search is used
-      2. Array ```visited[grid_height][grid_width]``` stores booleans for whether each square has been visited, to avoid redundant searches
+      2. Pointer to robot struct is passed into search and movement to change robot's position/direction as search happens
+      2. Dynamic array ```visited[grid_height][grid_width]``` stores booleans for whether each square has been visited, to avoid redundant searches
    b. Once the markers have been collected, the same depth-first search is applied to navigate back to the home tile
 3. Display
    a. The display refreshes every time the robot moves or a marker is picked up/placed
