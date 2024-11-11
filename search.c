@@ -17,11 +17,10 @@ bool search(Robot *robot, Coord **markers, int marker_count) {
         if (dfs(grid, visited, robot, 'm')) {
             pickUpMarker(robot, markers, &marker_count);
         } else {
+            //Clear map and try dfs again if failed
             freeVisited(&visited);
             initialiseVisited(&visited);
-            if (!dfs(grid, visited, robot, 'm')) {
-                printf("%s", "i tried my best prof ;(");
-            }
+            dfs(grid, visited, robot, 'm');
             freeVisited(&visited);
             initialiseVisited(&visited);
             break;
@@ -32,9 +31,6 @@ bool search(Robot *robot, Coord **markers, int marker_count) {
     initialiseVisited(&visited); 
     dfs(grid, visited, robot, 'h');
     freeVisited(&visited);
-
-    printf("Total markers: %d\n", marker_count);
-    printf("Markers picked: %d \n", robot->markers_picked);
 }
 
 void initialiseVisited(bool ***visited) {

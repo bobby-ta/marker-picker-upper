@@ -26,7 +26,6 @@ int main(void) {
     displayBackground();
     
     search(&robot, &markers, marker_count);
-    printf("Initial markers: %d\n", initial_markers);
     freeMarkers(markers);
     freeGrid();
 }
