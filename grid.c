@@ -32,7 +32,7 @@ void initialiseGrid(Coord *markers, int marker_count) {
     }
     //Inefficient but avoids overwriting markers
     for (int i = 0; i < marker_count; i++) {
-        grid[markers[i].y][markers[i].x] = 'm';
+        grid[markers[i].y][markers[i].x] = 'm'; //marker
     }
 }
 

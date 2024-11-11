@@ -11,25 +11,32 @@
 
 bool search(Robot *robot, Coord **markers, int marker_count) {
     bool **visited;
-
+    initialiseVisited(&visited);
     while (marker_count > 0) {
-        initialiseVisited(&visited); 
+         
         if (dfs(grid, visited, robot, 'm')) {
             pickUpMarker(robot, markers, &marker_count);
         } else {
-            printf("%s", "i tried my best prof ;(");
+            freeVisited(&visited);
+            initialiseVisited(&visited);
+            if (!dfs(grid, visited, robot, 'm')) {
+                printf("%s", "i tried my best prof ;(");
+            }
+            freeVisited(&visited);
+            initialiseVisited(&visited);
             break;
         }
-        freeVisited(&visited);
+        
     }
+    freeVisited(&visited);
     initialiseVisited(&visited); 
     dfs(grid, visited, robot, 'h');
     freeVisited(&visited);
+
     printf("Total markers: %d\n", marker_count);
     printf("Markers picked: %d \n", robot->markers_picked);
 }
 
-// Function to initialise visited array
 void initialiseVisited(bool ***visited) {
     *visited = malloc(grid_height * sizeof(bool*)); 
     for (int i = 0; i < grid_height; i++) {
@@ -42,22 +49,17 @@ void initialiseVisited(bool ***visited) {
 
 void freeVisited(bool ***visited) {
     for (int i = 0; i < grid_height; i++) {
-        free((*visited)[i]); // Free each row
+        free((*visited)[i]);
     }
-    free(*visited); // Free the array of pointers
+    free(*visited);
     *visited = NULL;
 }
-
-
-// Directions for moving right, up, down, left
-int row_num[] = {0, -1, 1, 0};
-int col_num[] = {1, 0, 0, -1};
 
 //DFS as explained by ChatGPT
 bool dfs(char **grid, bool **visited, Robot *robot, char target) {
     if (grid[robot->position.y][robot->position.x] == target) {
         return true;
-    } else if (grid[robot->position.y][robot->position.x] == 'm') { //In case we luck out on the way home
+    } else if (grid[robot->position.y][robot->position.x] == 'm') { //In case of airacle on the way to the home tile ;)
         robot->markers_picked ++;
         grid[robot->position.y][robot->position.x] = 'e';
         displayAll(robot);
@@ -82,19 +84,17 @@ bool dfs(char **grid, bool **visited, Robot *robot, char target) {
             };
             
             if (canMoveForward(robot)) {
-                //robot->position.y = next_row;
-                //robot->position.x = next_col;
                 forward(robot);
                 if (dfs(grid, visited, robot, target)) {
-                    return true; // Marker found in the recursive call
+                    return true;
                 } else {
                     while (robot->direction != (direction_index + 2) % 4) {
                         right(robot);
                         sleep(SLEEP_TIME / 4);
                     };
                     forward(robot);
-                    //robot->position.y -= vector_to_next[direction_index].y;
-                    //robot->position.x -= vector_to_next[direction_index].x;
+                    right(robot);
+                    right(robot);
                 }
             }
         }

@@ -16,6 +16,7 @@ int main(void) {
     setGridSize();
 
     int marker_count = rand() % (grid_width / 3) + 2;
+    const int initial_markers = marker_count;
     Coord *markers = createMarkers(marker_count);
     
     initialiseGrid(markers, marker_count);
@@ -23,11 +24,9 @@ int main(void) {
     Robot robot = initialiseRobot();
     grid[robot.position.y][robot.position.x] = 'h';
     displayBackground();
-    sleep(200);
     
-    //Find marker
     search(&robot, &markers, marker_count);
-    
+    printf("Initial markers: %d\n", initial_markers);
     freeMarkers(markers);
     freeGrid();
 }

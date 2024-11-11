@@ -18,21 +18,15 @@ Coord* createMarkers(int marker_count) {
 }
 
 void removeMarker(Coord **markers, int *total_markers, Coord robot_pos) {
-    // Simply remove the marker from the grid
-    grid[robot_pos.y][robot_pos.x] = 'e';  // Mark the position as empty
+    grid[robot_pos.y][robot_pos.x] = 'e';
 
-    // Loop through the markers and find the one to remove
     for (int i = 0; i < *total_markers; i++) {
         if ((*markers)[i].x == robot_pos.x && (*markers)[i].y == robot_pos.y) {
-            // Shift the remaining markers left to fill the gap
             for (int j = i; j < *total_markers - 1; j++) {
                 (*markers)[j] = (*markers)[j + 1];
             }
-
-            // Decrease the total number of markers
+            
             (*total_markers)--;
-
-            // Exit the loop once the marker is removed
             break;
         }
     }
