@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdbool.h>
 #include "global.h"
 #include "robot.h"
 #include "grid.h"
@@ -12,18 +13,20 @@
 void search(Robot *robot, Coord **markers, int marker_count) {
     bool **visited;
     initialiseVisited(&visited);
+    int rerun = false;
     while (marker_count > 0) {
-         
         if (dfs(grid, visited, robot, 'm')) {
             pickUpMarker(robot, markers, &marker_count);
+            rerun = false;
         } else {
             //Clear map and try dfs again if failed
-            freeVisited(&visited);
-            initialiseVisited(&visited);
-            dfs(grid, visited, robot, 'm');
-            freeVisited(&visited);
-            initialiseVisited(&visited);
-            break;
+            if (!rerun) {
+                freeVisited(&visited);
+                initialiseVisited(&visited);
+                rerun = true;
+            } else {
+                break;
+            }
         }
         
     }
